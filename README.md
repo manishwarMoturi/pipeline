@@ -14,15 +14,17 @@ pipeline {
     }
 
     stages {
+
         stage('Clone Repo & Clean') {
             steps {
-                
-                bat 'rmdir /s /q maven-simple'
 
-                
+                // Delete folder only if it exists
+                bat 'if exist maven-simple rmdir /s /q maven-simple'
+
+                // Clone repo
                 bat 'git clone https://github.com/manishwarMoturi/maven-simple.git'
 
-               
+                // Maven clean
                 bat 'mvn clean -f maven-simple/pom.xml'
             }
         }
